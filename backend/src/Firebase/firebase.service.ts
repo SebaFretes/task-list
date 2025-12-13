@@ -18,4 +18,17 @@ export class FirebaseService {
   getAuth() {
     return this.defaultApp.auth();
   }
+
+  async createUser(email: string, password: string) {
+    try {
+      const auth = this.getAuth();
+      const user = await auth.createUser({ email, password });
+      return { success: true, userId: user.uid };
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return { success: false, error: error.message };
+      }
+      return { success: false, error: 'Unknown error' };
+    }
+  }
 }
