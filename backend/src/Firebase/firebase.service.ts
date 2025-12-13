@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin';
 import { Injectable } from '@nestjs/common';
+import { Firestore } from '@google-cloud/firestore';
 
 @Injectable()
 export class FirebaseService {
@@ -17,6 +18,10 @@ export class FirebaseService {
 
   getAuth() {
     return this.defaultApp.auth();
+  }
+
+  getFirestore(): Firestore {
+    return this.defaultApp.firestore() as unknown as Firestore;
   }
 
   async createUser(email: string, password: string) {
