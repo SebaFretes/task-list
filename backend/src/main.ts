@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -7,6 +8,8 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors();
 
   app.useGlobalPipes(
     new ValidationPipe({

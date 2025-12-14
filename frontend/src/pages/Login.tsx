@@ -2,9 +2,10 @@
 import { useState } from 'react';
 import { login } from '../api/auth';
 import { Box, Button, TextField, Typography, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,7 +15,7 @@ export const Login = () => {
     try {
       const data = await login(email, password);
       localStorage.setItem('token', data.token);
-      alert('Login exitoso');
+      navigate('/tasks');
     } catch (err: any) {
       setError(err.response?.data?.error || 'Error en login');
     }
