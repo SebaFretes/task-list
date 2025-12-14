@@ -15,6 +15,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import AddIcon from '@mui/icons-material/Add';
+import { logout } from '../api/auth';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { getTasks, updateTask, deleteTask, createTask } from '../api/tasks';
 import type { Task } from '../api/tasks';
@@ -83,7 +85,7 @@ export const Tasks = () => {
   };
 
   const handleAddTask = async () => {
-    if (!newTitle.trim()) return; // evitar crear task vacía
+    if (!newTitle.trim()) return;
     try {
       const data = await createTask({
         title: newTitle,
@@ -108,7 +110,7 @@ export const Tasks = () => {
 
   return (
     <Box
-      p={2}
+      p={{ xs: 2, sm: 4 }}
       maxWidth="800px"
       mx="auto"
       mt={4}
@@ -124,6 +126,7 @@ export const Tasks = () => {
             key={task.id}
             sx={{
               display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: 'center',
               justifyContent: 'space-between',
               padding: 2,
@@ -134,15 +137,21 @@ export const Tasks = () => {
               '&:hover': { boxShadow: 6 },
             }}
           >
-            <Box display="flex" flexDirection="column" flex="1">
-              <Box display="flex" alignItems="center">
+            <Box display="flex" flexDirection="column" flex="1" width="100%">
+              <Box display="flex" alignItems="center" flexWrap="wrap">
                 <Checkbox
                   checked={task.done}
                   onChange={() => handleToggleDone(task)}
                   sx={{ color: '#1976d2' }}
                 />
                 {editingId === task.id ? (
-                  <Box flex="1" display="flex" flexDirection="column" ml={1}>
+                  <Box
+                    flex="1"
+                    display="flex"
+                    flexDirection="column"
+                    ml={1}
+                    width={{ xs: '100%', sm: 'auto' }}
+                  >
                     <TextField
                       value={editTitle}
                       onChange={(e) => setEditTitle(e.target.value)}
@@ -164,6 +173,7 @@ export const Tasks = () => {
                       textDecoration: task.done ? 'line-through' : 'none',
                       fontWeight: 500,
                       ml: 1,
+                      wordBreak: 'break-word',
                     }}
                   >
                     {task.title}
@@ -172,7 +182,11 @@ export const Tasks = () => {
               </Box>
 
               {!editingId && task.description && (
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 4 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ ml: 4, wordBreak: 'break-word' }}
+                >
                   {task.description}
                 </Typography>
               )}
@@ -183,7 +197,7 @@ export const Tasks = () => {
               )}
             </Box>
 
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" mt={{ xs: 1, sm: 0 }}>
               {editingId === task.id ? (
                 <IconButton onClick={() => handleSave(task)} color="primary">
                   <SaveIcon />
@@ -210,7 +224,6 @@ export const Tasks = () => {
         </Button>
       </Box>
 
-      {/* Modal para crear task */}
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Box
           sx={{
@@ -222,7 +235,7 @@ export const Tasks = () => {
             boxShadow: 24,
             p: 4,
             borderRadius: 2,
-            width: 400,
+            width: { xs: 300, sm: 400 },
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
@@ -248,6 +261,35 @@ export const Tasks = () => {
           </Button>
         </Box>
       </Modal>
+
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 20,
+          right: 20,
+          zIndex: 1000,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={logout}
+          sx={{
+            minWidth: 0,
+            padding: 1.5,
+            borderRadius: '50%',
+            backgroundColor: '#1976d2',
+            color: '#fff',
+            boxShadow: 3,
+            '&:hover': {
+              backgroundColor: '#1565c0',
+              boxShadow: 6,
+            },
+          }}
+        >
+          <LogoutIcon />
+        </Button>
+      </Box>
     </Box>
   );
 };

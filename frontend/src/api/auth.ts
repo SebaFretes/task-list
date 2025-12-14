@@ -12,3 +12,8 @@ export const register = async (email: string, password: string) => {
   });
   return response.data;
 };
+
+export const logout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/login';
+};
