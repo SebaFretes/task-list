@@ -97,18 +97,26 @@ export class TasksService {
     const db = this.firebaseService.getFirestore();
     const docRef = db.collection(this.collectionName).doc(id);
 
-    data.updatedAt = new Date().toISOString();
-
     try {
-      await docRef.update(data);
+      const cleanedData: Partial<Task> = {
+        ...data,
+        updatedAt: new Date().toISOString(),
+      };
+      Object.keys(cleanedData).forEach(
+        (key) =>
+          cleanedData[key as keyof Task] === undefined &&
+          delete cleanedData[key as keyof Task],
+      );
 
-      const updated = await docRef.get();
-      const updatedData = updated.data();
+      await docRef.set(cleanedData, { merge: true });
+
+      const updatedDoc = await docRef.get();
+      const updatedData = updatedDoc.data();
       if (!updatedData)
         throw new NotFoundException('Task not found after update');
 
       return {
-        id: updatedData.id,
+        id: docRef.id,
         title: updatedData.title,
         description: updatedData.description,
         done: updatedData.done ?? false,
