@@ -8,10 +8,11 @@ A simple **Task Management App** with authentication, task CRUD, and tests. Buil
 
 - [Features](#features)  
 - [Tech Stack](#tech-stack)  
-- [Installation](#installation)  
+- [Installation](#installation)
+- [IMPORTANT](#important)  
 - [Running the Project](#running-the-project)  
 - [Running Tests](#running-tests)  
-- [Authentication & Logout](#authentication--logout)  
+- [Authentication & Logout](#authentication--logout)
 - [Notes](#notes)  
 
 ---
@@ -65,6 +66,19 @@ cd task-list
 
 ---
 
+## IMPORTANT
+
+Before running the backend, make sure to create a `.env` file in the `backend` folder with your Firebase credentials:
+
+```env
+FB_PROJECT_ID=your_project_id
+FB_CLIENT_EMAIL=your_client_email
+FB_PRIVATE_KEY=your_private_key
+FIREBASE_API_KEY=your_firebase_api_key
+```
+
+---
+
 ## Running the Project
 
 Backend
@@ -114,6 +128,7 @@ JWT stored in localStorage after login
 Logout: clears the token from localStorage and redirects to login
 
 ---
+
 
 ## Notes
 
