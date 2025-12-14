@@ -19,7 +19,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/tasks" element={<Tasks />} />
+        <Route path="*" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
