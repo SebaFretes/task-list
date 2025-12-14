@@ -28,7 +28,16 @@ export const Register = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#7CC0F2',
+        padding: 2,
+      }}
+    >
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -38,6 +47,7 @@ export const Register = () => {
           p: 4,
           borderRadius: 2,
           boxShadow: 3,
+          backgroundColor: '#fff',
         }}
       >
         <Typography variant="h5" mb={3} textAlign="center">
@@ -72,7 +82,7 @@ export const Register = () => {
         />
 
         {error && (
-          <Typography color="error" mt={1}>
+          <Typography color="error" mt={1} textAlign="center">
             {error}
           </Typography>
         )}
