@@ -59,3 +59,40 @@ Clone the repository:
 ```bash
 git clone https://github.com/SebaFretes/task-list.git
 cd task-list
+
+Backend
+cd backend
+yarn install
+
+Frontend
+cd frontend
+yarn install
+
+Running the Project
+Backend
+cd backend
+yarn start:dev
+
+
+Server will run at http://localhost:3000
+
+Frontend
+cd frontend
+yarn dev
+
+
+Frontend will run at http://localhost:5173
+
+Running Tests
+Unit Tests (Backend)
+cd backend
+yarn test
+
+E2E Tests (Frontend)
+cd frontend
+yarn cypress open
+
+
+Then select the tasks.cy.ts spec and run it.
+
+The test will cover login, task creation, editing, marking done, and deletion.
