@@ -1,6 +1,6 @@
 # Task List App
 
-A simple Task Management App with authentication, task CRUD, and tests. Built with **React + TypeScript (Vite)** for the frontend, **NestJS + TypeScript** for the backend, and **Firebase** as the cloud database. Includes **unit and E2E tests**.
+A simple **Task Management App** with authentication, task CRUD, and tests. Built with **React + TypeScript (Vite)** for the frontend, **NestJS + TypeScript** for the backend, and **Firebase** as the cloud database. Includes **unit and E2E tests**.  
 
 ---
 
@@ -11,7 +11,7 @@ A simple Task Management App with authentication, task CRUD, and tests. Built wi
 - [Installation](#installation)  
 - [Running the Project](#running-the-project)  
 - [Running Tests](#running-tests)  
-- [Authentication](#authentication)  
+- [Authentication & Logout](#authentication--logout)  
 - [Notes](#notes)  
 
 ---
@@ -19,13 +19,14 @@ A simple Task Management App with authentication, task CRUD, and tests. Built wi
 ## Features
 
 - User authentication (login/register)  
-- Protected routes with token (PrivateRoute)  
+- Protected routes using **JWT** (PrivateRoute)  
 - Create, edit, delete tasks  
 - Mark tasks as done  
+- Logout functionality  
 - Responsive UI with **Material UI**  
 - Backend REST API protected by JWT  
-- Unit tests with **Jest**  
-- E2E tests with **Cypress**  
+- Unit tests with **Jest** (backend)  
+- E2E tests with **Cypress** (frontend)  
 
 ---
 
@@ -47,8 +48,8 @@ A simple Task Management App with authentication, task CRUD, and tests. Built wi
 
 **Testing:**  
 
-- Unit tests: Jest  
-- E2E tests: Cypress  
+- **Unit tests:** Jest (login, task CRUD)  
+- **E2E tests:** Cypress (login, task creation, edit, mark done, deletion)  
 
 ---
 
@@ -60,39 +61,68 @@ Clone the repository:
 git clone https://github.com/SebaFretes/task-list.git
 cd task-list
 
+```
+
+---
+
+## Running the Project
+
 Backend
+```bash
 cd backend
 yarn install
-
-Frontend
-cd frontend
-yarn install
-
-Running the Project
-Backend
-cd backend
 yarn start:dev
-
-
-Server will run at http://localhost:3000
+```
 
 Frontend
+```bash
 cd frontend
+yarn install
 yarn dev
+```
 
+---
 
-Frontend will run at http://localhost:5173
-
-Running Tests
+## Running Tests
 Unit Tests (Backend)
+```bash
 cd backend
 yarn test
+```
+
+Covers login, task CRUD operations, and validation.
 
 E2E Tests (Frontend)
+```bash
 cd frontend
 yarn cypress open
+```
 
+Select the tasks.cy.ts spec and run it.
+Covers login, task creation, editing, marking done, and deletion.
 
-Then select the tasks.cy.ts spec and run it.
+---
 
-The test will cover login, task creation, editing, marking done, and deletion.
+## Authentication & Logout
+
+User login/register handled via Firebase Authentication
+
+Protected routes implemented with PrivateRoute
+
+JWT stored in localStorage after login
+
+Logout: clears the token from localStorage and redirects to login
+
+---
+
+## Notes
+
+All tasks are currently visible to any logged-in user. For production, tasks should be associated with the logged-in user.
+
+Cloud Firestore is used as the backend database.
+
+Material UI ensures responsive design across devices.
+
+Code is structured for clarity, maintainability, and readability.
+
+Unit and E2E tests validate main functionalities.
