@@ -15,9 +15,15 @@ export const Login = () => {
     try {
       const data = await login(email, password);
       localStorage.setItem('token', data.token);
+      setError('');
       navigate('/tasks');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Error en login');
+      if (err.response?.status === 401) {
+        setError('Credenciales inválidas');
+      } else {
+        const message = err?.response?.data?.error || err?.message || 'Error en login';
+        setError(message);
+      }
     }
   };
 
