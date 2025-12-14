@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { FirebaseService } from './firebase.service';
 import { RegisterDto } from './dto/register.dto';
 
@@ -31,10 +37,9 @@ export class FirebaseController {
       const token = await this.firebaseService.loginUser(email, password);
       return { message: 'Login successful', token };
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        return { message: 'Login failed', error: error.message };
-      }
-      return { message: 'Login failed', error: 'Unknown error' };
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
+      throw new UnauthorizedException(errorMessage);
     }
   }
 }
