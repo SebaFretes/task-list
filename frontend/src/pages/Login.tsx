@@ -79,9 +79,9 @@ export const Login = () => {
         )}
 
         <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
-          ¿No tienes cuenta?{' '}
+          ¿No tenés cuenta?{' '}
           <Link component={RouterLink} to="/register">
-            Regístrate aquí
+            Registráte aquí
           </Link>
         </Typography>
       </Box>
